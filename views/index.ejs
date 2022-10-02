@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form id="formSubmit" action="/" method="post"  enctype="multipart/form-data">
+            <div class="row">
+              <div class="col">
+                <input id="countryId" type="text" class="form-control" name="id" placeholder="id">
+              </div>
+              <div class="col">
+                <input id="name" type="text" class="form-control" name="name" placeholder="name">
+              </div>
+              <div class="col">
+                <input id="nation" type="text" class="form-control" name="nation" placeholder="nation">
+              </div>
+              <div class="col">
+                <button id="btnAdd" type="button" class="btn btn-success">add</button>
+              </div>
+            </div>
+        </form>
+        <div>
+          <text id="errorText" class="text-danger">  </text>
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">countryId</th>
+                <th scope="col">name</th>
+                <th scope="col">nation</th>
+                <th scope="col">option</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(var key in country ) { %>
+                <tr>
+                    <td> <%= country[key].id %></td>
+                    <td> <%= country[key].name %></td>
+                    <td> <%= country[key].nation %></td>
+                    <td>
+                        <form method="post" action="/delete" enctype="multipart/form-data" >
+                            <input type="checkbox" hidden="true" checked ="true" name="id" value="<%= country[key].id %>"/>
+                            <button id="btnAdd" type="submit" class="btn btn-danger">delete</button> 
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+</body>
+<script>
+    const btnAdd = document.getElementById("btnAdd");
+
+    btnAdd.addEventListener("click", () => {
+      const id = document.getElementById("countryId");
+      const name = document.getElementById("name");
+      const nation = document.getElementById("nation");
+      const errorText = document.getElementById("errorText");
+    
+
+      if (id.value == "") {
+        errorText.innerText = "id must be filled"
+       
+        return;
+      }
+      if (name.value == "") {
+        errorText.innerText = "name must be filled"
+        
+        return;
+      }
+      if (nation.value == "") {
+        errorText.innerText = "nation must be filled"
+        
+        return;
+      }
+
+    
+        document.getElementById("formSubmit").submit();
+
+    });
+  </script>
+</html>
